@@ -1,0 +1,24 @@
+{
+  "name": "test2-landing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "chatbot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/donguk090923-prog/testlanding.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/donguk090923-prog/testlanding/issues"
+  },
+  "homepage": "https://github.com/donguk090923-prog/testlanding#readme",
+  "dependencies": {
+    "playwright": "^1.57.0"
+  }
+}

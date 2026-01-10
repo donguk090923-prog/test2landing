@@ -189,6 +189,35 @@
 </div>
 </div>
 </section>
+<!-- News Section -->
+<section class="py-20 px-6 lg:px-12" id="news-section">
+<div class="mb-12">
+<div class="flex items-end justify-between">
+<div>
+<span class="inline-block rounded-full bg-primary/10 px-4 py-1 text-sm font-bold text-primary mb-4">Latest News</span>
+<h2 class="text-3xl font-black tracking-tight lg:text-4xl">도어 & 인테리어 뉴스</h2>
+<p class="mt-4 text-[#717e67]">현관문, 인테리어 도어 관련 최신 뉴스를 확인하세요.</p>
+</div>
+<div class="hidden md:flex items-center gap-2 text-sm text-[#717e67]">
+<span class="material-symbols-outlined text-lg">update</span>
+<span id="news-update-time">업데이트 중...</span>
+</div>
+</div>
+</div>
+<div id="news-container" class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+<!-- 뉴스 카드가 JavaScript로 로드됩니다 -->
+<div class="col-span-full flex items-center justify-center py-12">
+<div class="flex items-center gap-3 text-[#717e67]">
+<svg class="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+</svg>
+<span>뉴스를 불러오는 중...</span>
+</div>
+</div>
+</div>
+</section>
+
 <!-- Trust Indicators & Certifications -->
 <section class="border-y border-[#edefeb] py-16 dark:border-stone-800">
 <div class="px-6 lg:px-12">
@@ -282,4 +311,8 @@
             </div>
 </div>
 </footer>
+<!-- News Loader -->
+<script src="news-loader.js"></script>
+<!-- AI Chatbot -->
+<script src="chatbot.js"></script>
 </body></html>
