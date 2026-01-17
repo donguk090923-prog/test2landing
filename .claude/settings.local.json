@@ -10,7 +10,23 @@
       "Bash(git config:*)",
       "Bash(git init:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(git remote add:*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)",
+      "Bash(npx playwright install chromium)",
+      "Bash(npm init:*)",
+      "Bash(npm install:*)",
+      "Bash(node news-crawler.js:*)",
+      "Bash(node:*)",
+      "Bash(powershell -Command \"\\(Get-Content debug-html.html -Raw\\) -match ''news_tit''\")",
+      "Bash(powershell:*)",
+      "Bash(findstr:*)",
+      "Bash(start \"\" \"https://console.firebase.google.com/project/owldoor-2252a/authentication/settings\")",
+      "Bash(start \"\" \"http://127.0.0.1:5500/firebase-test.html\")",
+      "Bash(start \"\" \"http://127.0.0.1:5500/product-detail.html\")",
+      "Bash(npx vercel:*)",
+      "Bash(git remote:*)"
     ],
     "additionalDirectories": [
       "c:\\aiproject\\door-expert"
