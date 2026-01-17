@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html class="light" lang="ko">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>전체 상품 | DoorExpert</title>
+    <meta name="description" content="DoorExpert의 프리미엄 도어 제품을 만나보세요. 현관문, 방화문, 중문, 스마트 도어락까지 다양한 제품을 확인하세요."/>
+    <link rel="canonical" href="https://owldoor.netlify.app/products.html"/>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#496039",
+                        "background-light": "#f7f7f6",
+                        "background-dark": "#191c16",
+                        "accent-brass": "#b29d71"
+                    },
+                    fontFamily: {
+                        "display": ["Epilogue", "Noto Sans KR", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Epilogue', 'Noto Sans KR', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#141612] dark:text-stone-50">
+<!-- Navigation -->
+<header class="sticky top-0 z-50 w-full border-b border-[#edefeb] bg-background-light/80 backdrop-blur-md dark:border-stone-800 dark:bg-background-dark/80">
+    <div class="mx-auto flex max-w-[1280px] items-center justify-between px-6 py-4 lg:px-12">
+        <a href="index.html" class="flex items-center gap-2">
+            <div class="text-primary">
+                <svg class="size-8" fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z"></path>
+                </svg>
+            </div>
+            <h1 class="text-xl font-black tracking-tight text-primary">DoorExpert</h1>
+        </a>
+        <nav class="hidden items-center gap-8 md:flex">
+            <a class="text-sm font-medium hover:text-primary transition-colors" href="index.html#service">서비스소개</a>
+            <a class="text-sm font-medium text-primary font-bold" href="products.html">상품소개</a>
+            <a class="text-sm font-medium hover:text-primary transition-colors" href="index.html#portfolio">시공사례</a>
+            <a class="text-sm font-medium hover:text-primary transition-colors" href="index.html#news-section">뉴스</a>
+            <a class="text-sm font-medium hover:text-primary transition-colors" href="index.html#certification">인증현황</a>
+        </nav>
+        <div class="flex items-center gap-3">
+            <a href="#" id="login-btn" class="text-sm font-medium hover:text-primary transition-colors">로그인</a>
+            <a href="#" id="signup-btn" class="rounded-lg border border-primary px-4 py-2 text-sm font-medium text-primary hover:bg-primary hover:text-white transition-all">회원가입</a>
+            <button class="hidden lg:flex items-center justify-center rounded-lg bg-primary px-5 py-2 text-sm font-bold text-white shadow-sm hover:bg-opacity-90 transition-all">
+                무료 견적
+            </button>
+        </div>
+    </div>
+</header>
+
+<main class="mx-auto max-w-[1280px]">
+    <!-- Page Header -->
+    <section class="px-6 py-12 lg:px-12 lg:py-16">
+        <div class="text-center">
+            <nav class="flex items-center justify-center gap-2 text-sm text-[#717e67] mb-6">
+                <a href="index.html" class="hover:text-primary">홈</a>
+                <span class="material-symbols-outlined text-sm">chevron_right</span>
+                <span class="text-primary font-medium">전체 상품</span>
+            </nav>
+            <h1 class="text-4xl font-black tracking-tight lg:text-5xl">프리미엄 도어 컬렉션</h1>
+            <p class="mt-4 text-lg text-[#717e67]">최고급 자재와 기술력으로 완성한 도어 라인업을 만나보세요.</p>
+        </div>
+    </section>
+
+    <!-- Category Filter -->
+    <section class="px-6 lg:px-12 mb-8">
+        <div class="flex flex-wrap items-center justify-center gap-3">
+            <button class="category-btn active rounded-full px-6 py-2 text-sm font-medium bg-primary text-white transition-all" data-category="all">전체</button>
+            <button class="category-btn rounded-full px-6 py-2 text-sm font-medium bg-white border border-[#edefeb] hover:border-primary hover:text-primary transition-all" data-category="entrance">현관문</button>
+            <button class="category-btn rounded-full px-6 py-2 text-sm font-medium bg-white border border-[#edefeb] hover:border-primary hover:text-primary transition-all" data-category="fire">방화문</button>
+            <button class="category-btn rounded-full px-6 py-2 text-sm font-medium bg-white border border-[#edefeb] hover:border-primary hover:text-primary transition-all" data-category="interior">중문</button>
+            <button class="category-btn rounded-full px-6 py-2 text-sm font-medium bg-white border border-[#edefeb] hover:border-primary hover:text-primary transition-all" data-category="smart">스마트락</button>
+        </div>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="px-6 pb-24 lg:px-12">
+        <div id="products-grid" class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+
+            <!-- Product 1: 프리미엄 현관문 시그니처 -->
+            <div class="product-card group" data-category="entrance">
+                <a href="product-detail.html?id=1" class="block relative overflow-hidden rounded-2xl bg-white shadow-md border border-[#edefeb] hover:shadow-xl transition-all dark:bg-stone-900 dark:border-stone-800">
+                    <div class="aspect-[4/3] w-full bg-cover bg-center transition-transform group-hover:scale-105 duration-500" style="background-image: url('https://images.unsplash.com/photo-1506452305024-9d3f02d1c9b5?w=600&h=450&fit=crop');"></div>
+                    <div class="absolute top-4 left-4 flex gap-2">
+                        <span class="rounded-full bg-primary px-3 py-1 text-xs font-bold text-white">BEST</span>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-medium text-[#717e67]">현관문</span>
+                        <h3 class="text-xl font-bold mt-1 mb-2 group-hover:text-primary transition-colors">프리미엄 현관문 시그니처</h3>
+                        <p class="text-sm text-[#717e67] mb-4">독일산 단열재와 3중 잠금장치로 완벽한 보안과 단열을 제공합니다.</p>
+                        <div class="flex items-center justify-between">
+                            <p class="text-xl font-bold text-primary">1,200,000원~</p>
+                            <span class="text-sm text-accent-brass font-medium">무료 시공</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Product 2: 프리미엄 현관문 모던 -->
+            <div class="product-card group" data-category="entrance">
+                <a href="product-detail.html?id=2" class="block relative overflow-hidden rounded-2xl bg-white shadow-md border border-[#edefeb] hover:shadow-xl transition-all dark:bg-stone-900 dark:border-stone-800">
+                    <div class="aspect-[4/3] w-full bg-cover bg-center transition-transform group-hover:scale-105 duration-500" style="background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=450&fit=crop');"></div>
+                    <div class="p-6">
+                        <span class="text-xs font-medium text-[#717e67]">현관문</span>
+                        <h3 class="text-xl font-bold mt-1 mb-2 group-hover:text-primary transition-colors">프리미엄 현관문 모던</h3>
+                        <p class="text-sm text-[#717e67] mb-4">미니멀한 디자인과 강화 스틸 구조로 모던한 인테리어에 완벽한 조화.</p>
+                        <div class="flex items-center justify-between">
+                            <p class="text-xl font-bold text-primary">1,500,000원~</p>
+                            <span class="text-sm text-accent-brass font-medium">무료 시공</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Product 3: 프리미엄 현관문 클래식 -->
+            <div class="product-card group" data-category="entrance">
+                <a href="product-detail.html?id=3" class="block relative overflow-hidden rounded-2xl bg-white shadow-md border border-[#edefeb] hover:shadow-xl transition-all dark:bg-stone-900 dark:border-stone-800">
+                    <div class="aspect-[4/3] w-full bg-cover bg-center transition-transform group-hover:scale-105 duration-500" style="background-image: url('https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600&h=450&fit=crop');"></div>
+                    <div class="p-6">
+                        <span class="text-xs font-medium text-[#717e67]">현관문</span>
+                        <h3 class="text-xl font-bold mt-1 mb-2 group-hover:text-primary transition-colors">프리미엄 현관문 클래식</h3>
+                        <p class="text-sm text-[#717e67] mb-4">고급스러운 우드 패턴과 클래식한 디자인으로 품격있는 현관을 완성합니다.</p>
+                        <div class="flex items-center justify-between">
+                            <p class="text-xl font-bold text-primary">1,350,000원~</p>
+                            <span class="text-sm text-accent-brass font-medium">무료 시공</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Product 4: 갑종 방화문 -->
+            <div class="product-card group" data-category="fire">
+                <a href="product-detail.html?id=4" class="block relative overflow-hidden rounded-2xl bg-white shadow-md border border-[#edefeb] hover:shadow-xl transition-all dark:bg-stone-900 dark:border-stone-800">
+                    <div class="aspect-[4/3] w-full bg-cover bg-center transition-transform group-hover:scale-105 duration-500" style="background-image: url('https://images.unsplash.com/photo-1517991104123-1d56a6e81ed9?w=600&h=450&fit=crop');"></div>
+                    <div class="absolute top-4 left-4 flex gap-2">
+                        <span class="rounded-full bg-red-500 px-3 py-1 text-xs font-bold text-white">안전인증</span>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-medium text-[#717e67]">방화문</span>
+                        <h3 class="text-xl font-bold mt-1 mb-2 group-hover:text-primary transition-colors">갑종 방화문</h3>
+                        <p class="text-sm text-[#717e67] mb-4">KS 인증 60분 내화 성능으로 화재로부터 가족을 안전하게 보호합니다.</p>
+                        <div class="flex items-center justify-between">
+                            <p class="text-xl font-bold text-primary">800,000원~</p>
+                            <span class="text-sm text-accent-brass font-medium">무료 시공</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Product 5: 을종 방화문 -->
+            <div class="product-card group" data-category="fire">
+                <a href="product-detail.html?id=5" class="block relative overflow-hidden rounded-2xl bg-white shadow-md border border-[#edefeb] hover:shadow-xl transition-all dark:bg-stone-900 dark:border-stone-800">
+                    <div class="aspect-[4/3] w-full bg-cover bg-center transition-transform group-hover:scale-105 duration-500" style="background-image: url('https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=600&h=450&fit=crop');"></div>
+                    <div class="p-6">
+                        <span class="text-xs font-medium text-[#717e67]">방화문</span>
+                        <h3 class="text-xl font-bold mt-1 mb-2 group-hover:text-primary transition-colors">을종 방화문</h3>
+                        <p class="text-sm text-[#717e67] mb-4">30분 내화 성능과 경제적인 가격으로 합리적인 방화 솔루션을 제공합니다.</p>
+                        <div class="flex items-center justify-between">
+                            <p class="text-xl font-bold text-primary">650,000원~</p>
+                            <span class="text-sm text-accent-brass font-medium">무료 시공</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Product 6: 3연동 중문 프리미엄 -->
+            <div class="product-card group" data-category="interior">
+                <a href="product-detail.html?id=6" class="block relative overflow-hidden rounded-2xl bg-white shadow-md border border-[#edefeb] hover:shadow-xl transition-all dark:bg-stone-900 dark:border-stone-800">
+                    <div class="aspect-[4/3] w-full bg-cover bg-center transition-transform group-hover:scale-105 duration-500" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=450&fit=crop');"></div>
+                    <div class="absolute top-4 left-4 flex gap-2">
+                        <span class="rounded-full bg-accent-brass px-3 py-1 text-xs font-bold text-white">NEW</span>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-medium text-[#717e67]">중문</span>
+                        <h3 class="text-xl font-bold mt-1 mb-2 group-hover:text-primary transition-colors">3연동 중문 프리미엄</h3>
+                        <p class="text-sm text-[#717e67] mb-4">부드러운 슬라이딩과 투명 강화유리로 공간을 넓고 밝게 연출합니다.</p>
+                        <div class="flex items-center justify-between">
+                            <p class="text-xl font-bold text-primary">650,000원~</p>
+                            <span class="text-sm text-accent-brass font-medium">무료 시공</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Product 7: 4연동 중문 -->
+            <div class="product-card group" data-category="interior">
+                <a href="product-detail.html?id=7" class="block relative overflow-hidden rounded-2xl bg-white shadow-md border border-[#edefeb] hover:shadow-xl transition-all dark:bg-stone-900 dark:border-stone-800">
+                    <div class="aspect-[4/3] w-full bg-cover bg-center transition-transform group-hover:scale-105 duration-500" style="background-image: url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=450&fit=crop');"></div>
+                    <div class="p-6">
+                        <span class="text-xs font-medium text-[#717e67]">중문</span>
+                        <h3 class="text-xl font-bold mt-1 mb-2 group-hover:text-primary transition-colors">4연동 중문 와이드</h3>
+                        <p class="text-sm text-[#717e67] mb-4">넓은 개구부를 위한 4연동 시스템으로 대형 공간에 적합합니다.</p>
+                        <div class="flex items-center justify-between">
+                            <p class="text-xl font-bold text-primary">850,000원~</p>
+                            <span class="text-sm text-accent-brass font-medium">무료 시공</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Product 8: 슬라이딩 중문 -->
+            <div class="product-card group" data-category="interior">
+                <a href="product-detail.html?id=8" class="block relative overflow-hidden rounded-2xl bg-white shadow-md border border-[#edefeb] hover:shadow-xl transition-all dark:bg-stone-900 dark:border-stone-800">
+                    <div class="aspect-[4/3] w-full bg-cover bg-center transition-transform group-hover:scale-105 duration-500" style="background-image: url('https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=600&h=450&fit=crop');"></div>
+                    <div class="p-6">
+                        <span class="text-xs font-medium text-[#717e67]">중문</span>
+                        <h3 class="text-xl font-bold mt-1 mb-2 group-hover:text-primary transition-colors">슬라이딩 중문 베이직</h3>
+                        <p class="text-sm text-[#717e67] mb-4">심플한 2연동 슬라이딩 시스템으로 실용적인 공간 분리가 가능합니다.</p>
+                        <div class="flex items-center justify-between">
+                            <p class="text-xl font-bold text-primary">450,000원~</p>
+                            <span class="text-sm text-accent-brass font-medium">무료 시공</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Product 9: 스마트 도어락 프리미엄 -->
+            <div class="product-card group" data-category="smart">
+                <a href="product-detail.html?id=9" class="block relative overflow-hidden rounded-2xl bg-white shadow-md border border-[#edefeb] hover:shadow-xl transition-all dark:bg-stone-900 dark:border-stone-800">
+                    <div class="aspect-[4/3] w-full bg-cover bg-center transition-transform group-hover:scale-105 duration-500" style="background-image: url('https://images.unsplash.com/photo-1563453392212-326f5e854473?w=600&h=450&fit=crop');"></div>
+                    <div class="absolute top-4 left-4 flex gap-2">
+                        <span class="rounded-full bg-blue-500 px-3 py-1 text-xs font-bold text-white">SMART</span>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-medium text-[#717e67]">스마트락</span>
+                        <h3 class="text-xl font-bold mt-1 mb-2 group-hover:text-primary transition-colors">스마트 도어락 프리미엄</h3>
+                        <p class="text-sm text-[#717e67] mb-4">지문, 비밀번호, 카드, 앱 연동까지 4가지 인증 방식을 지원합니다.</p>
+                        <div class="flex items-center justify-between">
+                            <p class="text-xl font-bold text-primary">350,000원~</p>
+                            <span class="text-sm text-accent-brass font-medium">무료 설치</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Product 10: 스마트 도어락 베이직 -->
+            <div class="product-card group" data-category="smart">
+                <a href="product-detail.html?id=10" class="block relative overflow-hidden rounded-2xl bg-white shadow-md border border-[#edefeb] hover:shadow-xl transition-all dark:bg-stone-900 dark:border-stone-800">
+                    <div class="aspect-[4/3] w-full bg-cover bg-center transition-transform group-hover:scale-105 duration-500" style="background-image: url('https://images.unsplash.com/photo-1558002038-1055907df827?w=600&h=450&fit=crop');"></div>
+                    <div class="p-6">
+                        <span class="text-xs font-medium text-[#717e67]">스마트락</span>
+                        <h3 class="text-xl font-bold mt-1 mb-2 group-hover:text-primary transition-colors">스마트 도어락 베이직</h3>
+                        <p class="text-sm text-[#717e67] mb-4">비밀번호와 카드 인증으로 기본에 충실한 스마트 도어락입니다.</p>
+                        <div class="flex items-center justify-between">
+                            <p class="text-xl font-bold text-primary">250,000원~</p>
+                            <span class="text-sm text-accent-brass font-medium">무료 설치</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Product 11: 푸시풀 도어락 -->
+            <div class="product-card group" data-category="smart">
+                <a href="product-detail.html?id=11" class="block relative overflow-hidden rounded-2xl bg-white shadow-md border border-[#edefeb] hover:shadow-xl transition-all dark:bg-stone-900 dark:border-stone-800">
+                    <div class="aspect-[4/3] w-full bg-cover bg-center transition-transform group-hover:scale-105 duration-500" style="background-image: url('https://images.unsplash.com/photo-1585128792020-803d29415281?w=600&h=450&fit=crop');"></div>
+                    <div class="p-6">
+                        <span class="text-xs font-medium text-[#717e67]">스마트락</span>
+                        <h3 class="text-xl font-bold mt-1 mb-2 group-hover:text-primary transition-colors">푸시풀 도어락</h3>
+                        <p class="text-sm text-[#717e67] mb-4">밀고 당기는 직관적인 동작으로 편리하게 사용할 수 있습니다.</p>
+                        <div class="flex items-center justify-between">
+                            <p class="text-xl font-bold text-primary">450,000원~</p>
+                            <span class="text-sm text-accent-brass font-medium">무료 설치</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Product 12: 자동 중문 -->
+            <div class="product-card group" data-category="interior">
+                <a href="product-detail.html?id=12" class="block relative overflow-hidden rounded-2xl bg-white shadow-md border border-[#edefeb] hover:shadow-xl transition-all dark:bg-stone-900 dark:border-stone-800">
+                    <div class="aspect-[4/3] w-full bg-cover bg-center transition-transform group-hover:scale-105 duration-500" style="background-image: url('https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=600&h=450&fit=crop');"></div>
+                    <div class="absolute top-4 left-4 flex gap-2">
+                        <span class="rounded-full bg-purple-500 px-3 py-1 text-xs font-bold text-white">자동화</span>
+                    </div>
+                    <div class="p-6">
+                        <span class="text-xs font-medium text-[#717e67]">중문</span>
+                        <h3 class="text-xl font-bold mt-1 mb-2 group-hover:text-primary transition-colors">자동 중문 시스템</h3>
+                        <p class="text-sm text-[#717e67] mb-4">센서 감지로 자동 개폐되는 프리미엄 자동화 중문 시스템입니다.</p>
+                        <div class="flex items-center justify-between">
+                            <p class="text-xl font-bold text-primary">1,200,000원~</p>
+                            <span class="text-sm text-accent-brass font-medium">무료 시공</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="px-6 pb-24 lg:px-12">
+        <div class="relative overflow-hidden rounded-[2rem] bg-primary px-8 py-16 text-white text-center">
+            <div class="absolute -right-20 -top-20 size-80 rounded-full bg-white/5"></div>
+            <div class="absolute -left-20 -bottom-20 size-60 rounded-full bg-white/5"></div>
+            <div class="relative z-10 max-w-2xl mx-auto">
+                <h2 class="text-2xl font-black lg:text-3xl">원하는 제품을 찾지 못하셨나요?</h2>
+                <p class="mt-4 text-white/80">전문 상담사가 고객님의 요구에 맞는 맞춤 솔루션을 제안해드립니다.</p>
+                <div class="mt-8">
+                    <a href="index.html" class="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-lg font-bold text-primary hover:bg-opacity-90 transition-all">
+                        무료 상담 신청
+                        <span class="material-symbols-outlined">arrow_forward</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Footer -->
+<footer class="bg-stone-100 py-16 px-6 lg:px-12 dark:bg-stone-950">
+    <div class="mx-auto max-w-[1280px]">
+        <div class="grid grid-cols-1 gap-12 md:grid-cols-4">
+            <div class="md:col-span-2">
+                <a href="index.html" class="flex items-center gap-2 mb-6">
+                    <div class="text-primary">
+                        <svg class="size-6" fill="currentColor" viewbox="0 0 48 48">
+                            <path d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z"></path>
+                        </svg>
+                    </div>
+                    <h2 class="text-xl font-black tracking-tight text-primary">DoorExpert</h2>
+                </a>
+                <p class="max-w-xs text-sm text-[#717e67]">대한민국 프리미엄 현관문 시공 서비스의 표준. 완벽한 마감과 철저한 사후관리로 고객 만족을 최우선으로 생각합니다.</p>
+            </div>
+            <div>
+                <h4 class="mb-6 font-bold uppercase tracking-wider text-xs">Contact</h4>
+                <ul class="space-y-4 text-sm text-[#717e67]">
+                    <li class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-sm">call</span>
+                        1588-0000
+                    </li>
+                    <li class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-sm">mail</span>
+                        support@doorexpert.kr
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="material-symbols-outlined text-sm mt-0.5">location_on</span>
+                        서울특별시 강남구 테헤란로 123<br/>도어엑스퍼트 빌딩
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="mb-6 font-bold uppercase tracking-wider text-xs">Social</h4>
+                <div class="flex gap-4">
+                    <a class="flex size-10 items-center justify-center rounded-full bg-white shadow-sm hover:text-primary dark:bg-stone-900 transition-colors" href="#">
+                        <span class="material-symbols-outlined">share</span>
+                    </a>
+                    <a class="flex size-10 items-center justify-center rounded-full bg-white shadow-sm hover:text-primary dark:bg-stone-900 transition-colors" href="#">
+                        <span class="material-symbols-outlined">public</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="mt-16 border-t border-[#edefeb] pt-8 text-center text-xs text-[#717e67] dark:border-stone-800">
+            © 2024 DoorExpert Inc. All rights reserved. Professional Entrance Door Solutions.
+        </div>
+    </div>
+</footer>
+
+<!-- Login/Signup Modal -->
+<div id="auth-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/50 backdrop-blur-sm">
+    <div class="relative w-full max-w-md mx-4 rounded-2xl bg-white p-8 shadow-2xl dark:bg-stone-900">
+        <button id="close-modal" class="absolute top-4 right-4 text-[#717e67] hover:text-primary transition-colors">
+            <span class="material-symbols-outlined">close</span>
+        </button>
+        <div id="modal-content">
+            <!-- Login Form -->
+            <div id="login-form">
+                <h2 class="text-2xl font-black text-center mb-2">로그인</h2>
+                <p class="text-center text-[#717e67] mb-8">DoorExpert에 오신 것을 환영합니다</p>
+
+                <!-- Social Login Buttons -->
+                <div class="space-y-3 mb-6">
+                    <button class="w-full flex items-center justify-center gap-3 rounded-lg border border-[#edefeb] bg-white px-4 py-3 font-medium hover:bg-gray-50 transition-all">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        Google로 계속하기
+                    </button>
+                    <button class="w-full flex items-center justify-center gap-3 rounded-lg bg-[#FEE500] px-4 py-3 font-medium hover:bg-[#FDD835] transition-all">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24">
+                            <path fill="#000000" d="M12 3C6.48 3 2 6.58 2 11c0 2.85 1.87 5.37 4.68 6.78-.15.53-.54 1.92-.62 2.22-.1.37.14.37.29.27.12-.08 1.9-1.28 2.67-1.8.64.09 1.3.14 1.98.14 5.52 0 10-3.58 10-8s-4.48-8-10-8z"/>
+                        </svg>
+                        카카오로 계속하기
+                    </button>
+                </div>
+
+                <div class="relative my-6">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-[#edefeb]"></div>
+                    </div>
+                    <div class="relative flex justify-center text-xs uppercase">
+                        <span class="bg-white px-2 text-[#717e67]">또는</span>
+                    </div>
+                </div>
+
+                <!-- Email Login -->
+                <div class="space-y-4">
+                    <div>
+                        <label class="text-xs font-bold uppercase tracking-wider text-[#717e67]">이메일</label>
+                        <input type="email" class="mt-2 w-full rounded-lg border border-[#edefeb] bg-[#f7f7f6] px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" placeholder="example@email.com"/>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold uppercase tracking-wider text-[#717e67]">비밀번호</label>
+                        <input type="password" class="mt-2 w-full rounded-lg border border-[#edefeb] bg-[#f7f7f6] px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" placeholder="••••••••"/>
+                    </div>
+                    <button class="w-full rounded-lg bg-primary py-3 font-bold text-white hover:bg-opacity-90 transition-all">
+                        로그인
+                    </button>
+                </div>
+
+                <p class="mt-6 text-center text-sm text-[#717e67]">
+                    아직 회원이 아니신가요?
+                    <button id="show-signup" class="text-primary font-medium hover:underline">회원가입</button>
+                </p>
+            </div>
+
+            <!-- Signup Form -->
+            <div id="signup-form" class="hidden">
+                <h2 class="text-2xl font-black text-center mb-2">회원가입</h2>
+                <p class="text-center text-[#717e67] mb-8">간편하게 가입하고 서비스를 이용하세요</p>
+
+                <!-- Social Login Buttons -->
+                <div class="space-y-3 mb-6">
+                    <button class="w-full flex items-center justify-center gap-3 rounded-lg border border-[#edefeb] bg-white px-4 py-3 font-medium hover:bg-gray-50 transition-all">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        Google로 가입하기
+                    </button>
+                    <button class="w-full flex items-center justify-center gap-3 rounded-lg bg-[#FEE500] px-4 py-3 font-medium hover:bg-[#FDD835] transition-all">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24">
+                            <path fill="#000000" d="M12 3C6.48 3 2 6.58 2 11c0 2.85 1.87 5.37 4.68 6.78-.15.53-.54 1.92-.62 2.22-.1.37.14.37.29.27.12-.08 1.9-1.28 2.67-1.8.64.09 1.3.14 1.98.14 5.52 0 10-3.58 10-8s-4.48-8-10-8z"/>
+                        </svg>
+                        카카오로 가입하기
+                    </button>
+                </div>
+
+                <div class="relative my-6">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-[#edefeb]"></div>
+                    </div>
+                    <div class="relative flex justify-center text-xs uppercase">
+                        <span class="bg-white px-2 text-[#717e67]">또는</span>
+                    </div>
+                </div>
+
+                <!-- Email Signup -->
+                <div class="space-y-4">
+                    <div>
+                        <label class="text-xs font-bold uppercase tracking-wider text-[#717e67]">이름</label>
+                        <input type="text" class="mt-2 w-full rounded-lg border border-[#edefeb] bg-[#f7f7f6] px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" placeholder="홍길동"/>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold uppercase tracking-wider text-[#717e67]">이메일</label>
+                        <input type="email" class="mt-2 w-full rounded-lg border border-[#edefeb] bg-[#f7f7f6] px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" placeholder="example@email.com"/>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold uppercase tracking-wider text-[#717e67]">비밀번호</label>
+                        <input type="password" class="mt-2 w-full rounded-lg border border-[#edefeb] bg-[#f7f7f6] px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" placeholder="8자 이상 입력"/>
+                    </div>
+                    <button class="w-full rounded-lg bg-primary py-3 font-bold text-white hover:bg-opacity-90 transition-all">
+                        가입하기
+                    </button>
+                </div>
+
+                <p class="mt-6 text-center text-sm text-[#717e67]">
+                    이미 회원이신가요?
+                    <button id="show-login" class="text-primary font-medium hover:underline">로그인</button>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Category Filter
+document.querySelectorAll('.category-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        // Update active button style
+        document.querySelectorAll('.category-btn').forEach(b => {
+            b.classList.remove('active', 'bg-primary', 'text-white');
+            b.classList.add('bg-white', 'border', 'border-[#edefeb]');
+        });
+        this.classList.add('active', 'bg-primary', 'text-white');
+        this.classList.remove('bg-white', 'border', 'border-[#edefeb]');
+
+        // Filter products
+        const category = this.dataset.category;
+        document.querySelectorAll('.product-card').forEach(card => {
+            if (category === 'all' || card.dataset.category === category) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+});
+
+// Auth Modal
+const authModal = document.getElementById('auth-modal');
+const loginBtn = document.getElementById('login-btn');
+const signupBtn = document.getElementById('signup-btn');
+const closeModal = document.getElementById('close-modal');
+const loginForm = document.getElementById('login-form');
+const signupForm = document.getElementById('signup-form');
+const showSignup = document.getElementById('show-signup');
+const showLogin = document.getElementById('show-login');
+
+function openModal(showSignupFirst = false) {
+    authModal.classList.remove('hidden');
+    authModal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+
+    if (showSignupFirst) {
+        loginForm.classList.add('hidden');
+        signupForm.classList.remove('hidden');
+    } else {
+        loginForm.classList.remove('hidden');
+        signupForm.classList.add('hidden');
+    }
+}
+
+function closeModalFn() {
+    authModal.classList.add('hidden');
+    authModal.classList.remove('flex');
+    document.body.style.overflow = '';
+}
+
+loginBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    openModal(false);
+});
+
+signupBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    openModal(true);
+});
+
+closeModal.addEventListener('click', closeModalFn);
+
+authModal.addEventListener('click', (e) => {
+    if (e.target === authModal) {
+        closeModalFn();
+    }
+});
+
+showSignup.addEventListener('click', () => {
+    loginForm.classList.add('hidden');
+    signupForm.classList.remove('hidden');
+});
+
+showLogin.addEventListener('click', () => {
+    signupForm.classList.add('hidden');
+    loginForm.classList.remove('hidden');
+});
+
+// ESC key to close modal
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        closeModalFn();
+    }
+});
+</script>
+
+</body>
+</html>

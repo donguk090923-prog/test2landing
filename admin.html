@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html class="light" lang="ko">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>관리자 대시보드 | DoorExpert</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#496039",
+                        "background-light": "#f7f7f6",
+                        "background-dark": "#191c16",
+                        "accent-brass": "#b29d71"
+                    },
+                    fontFamily: {
+                        "display": ["Epilogue", "Noto Sans KR", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Epilogue', 'Noto Sans KR', sans-serif;
+        }
+        .sidebar-link.active {
+            background-color: rgba(73, 96, 57, 0.1);
+            color: #496039;
+            border-right: 3px solid #496039;
+        }
+        .gauge-container {
+            position: relative;
+            width: 100px;
+            height: 60px;
+        }
+        .gauge-bg {
+            stroke: #e5e7eb;
+        }
+        .gauge-fill {
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.5s ease;
+        }
+    </style>
+</head>
+<body class="bg-[#f0f2f5]">
+<div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside class="fixed left-0 top-0 z-40 h-screen w-64 bg-white border-r border-gray-200 shadow-sm">
+        <div class="flex items-center gap-2 px-6 py-5 border-b border-gray-100">
+            <div class="text-primary">
+                <svg class="size-8" fill="currentColor" viewbox="0 0 48 48">
+                    <path d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z"></path>
+                </svg>
+            </div>
+            <h1 class="text-xl font-black tracking-tight text-primary">DoorExpert</h1>
+        </div>
+        <nav class="px-4 py-6 space-y-1">
+            <a href="#" class="sidebar-link active flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors">
+                <span class="material-symbols-outlined text-xl">dashboard</span>
+                대시보드
+            </a>
+            <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+                <span class="material-symbols-outlined text-xl">shopping_cart</span>
+                주문 관리
+            </a>
+            <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+                <span class="material-symbols-outlined text-xl">inventory_2</span>
+                상품 관리
+            </a>
+            <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+                <span class="material-symbols-outlined text-xl">group</span>
+                고객 관리
+            </a>
+            <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+                <span class="material-symbols-outlined text-xl">construction</span>
+                시공 일정
+            </a>
+            <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+                <span class="material-symbols-outlined text-xl">support_agent</span>
+                상담 문의
+            </a>
+            <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+                <span class="material-symbols-outlined text-xl">bar_chart</span>
+                매출 통계
+            </a>
+            <a href="#" class="sidebar-link flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors">
+                <span class="material-symbols-outlined text-xl">settings</span>
+                설정
+            </a>
+        </nav>
+        <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-100">
+            <a href="index.html" class="flex items-center gap-2 text-sm text-gray-500 hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-lg">arrow_back</span>
+                메인 사이트로 돌아가기
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="ml-64 flex-1 p-8">
+        <!-- Header -->
+        <header class="flex items-center justify-between mb-8">
+            <div>
+                <h1 class="text-2xl font-black text-gray-900">대시보드</h1>
+                <p class="text-sm text-gray-500 mt-1">안녕하세요, 관리자님! 오늘의 현황을 확인하세요.</p>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="relative p-2 text-gray-500 hover:text-primary transition-colors">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+                </button>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-primary">person</span>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium">관리자</p>
+                        <p class="text-xs text-gray-500">admin@doorexpert.kr</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Stats Cards Row 1 - Gauge Style -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <!-- 월간 매출 달성률 -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">월간 매출 달성률</h3>
+                        <div class="flex items-center gap-2 mt-1">
+                            <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                            <span class="text-xs text-gray-400">High</span>
+                            <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
+                            <span class="text-xs text-gray-400">Mid</span>
+                            <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                            <span class="text-xs text-gray-400">Low</span>
+                        </div>
+                        <p class="text-4xl font-black text-gray-900 mt-3">78%</p>
+                    </div>
+                    <div class="gauge-container">
+                        <svg viewBox="0 0 100 60" class="w-full h-full">
+                            <path d="M 10 55 A 40 40 0 0 1 90 55" fill="none" class="gauge-bg" stroke-width="8"/>
+                            <path d="M 10 55 A 40 40 0 0 1 90 55" fill="none" stroke="#22c55e" stroke-width="8" stroke-dasharray="126" stroke-dashoffset="28" class="gauge-fill"/>
+                            <text x="50" y="45" text-anchor="middle" class="text-xs font-bold fill-gray-700">78%</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 시공 완료율 -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">시공 완료율</h3>
+                        <div class="flex items-center gap-2 mt-1">
+                            <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                            <span class="text-xs text-gray-400">High</span>
+                            <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
+                            <span class="text-xs text-gray-400">Mid</span>
+                            <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                            <span class="text-xs text-gray-400">Low</span>
+                        </div>
+                        <p class="text-4xl font-black text-gray-900 mt-3">92%</p>
+                    </div>
+                    <div class="gauge-container">
+                        <svg viewBox="0 0 100 60" class="w-full h-full">
+                            <path d="M 10 55 A 40 40 0 0 1 90 55" fill="none" class="gauge-bg" stroke-width="8"/>
+                            <path d="M 10 55 A 40 40 0 0 1 90 55" fill="none" stroke="#22c55e" stroke-width="8" stroke-dasharray="126" stroke-dashoffset="10" class="gauge-fill"/>
+                            <text x="50" y="45" text-anchor="middle" class="text-xs font-bold fill-gray-700">92%</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 고객 만족도 -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-500">고객 만족도</h3>
+                        <div class="flex items-center gap-2 mt-1">
+                            <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                            <span class="text-xs text-gray-400">High</span>
+                            <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
+                            <span class="text-xs text-gray-400">Mid</span>
+                            <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                            <span class="text-xs text-gray-400">Low</span>
+                        </div>
+                        <p class="text-4xl font-black text-gray-900 mt-3">4.8</p>
+                    </div>
+                    <div class="gauge-container">
+                        <svg viewBox="0 0 100 60" class="w-full h-full">
+                            <path d="M 10 55 A 40 40 0 0 1 90 55" fill="none" class="gauge-bg" stroke-width="8"/>
+                            <path d="M 10 55 A 40 40 0 0 1 90 55" fill="none" stroke="#22c55e" stroke-width="8" stroke-dasharray="126" stroke-dashoffset="5" class="gauge-fill"/>
+                            <text x="50" y="45" text-anchor="middle" class="text-xs font-bold fill-gray-700">96%</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Cards Row 2 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                <div class="flex items-center justify-between">
+                    <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-blue-500">shopping_bag</span>
+                    </div>
+                    <span class="text-xs font-medium text-green-500 bg-green-50 px-2 py-1 rounded-full">+12%</span>
+                </div>
+                <p class="text-2xl font-black text-gray-900 mt-4">156</p>
+                <p class="text-sm text-gray-500">이번 달 주문</p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                <div class="flex items-center justify-between">
+                    <div class="w-12 h-12 rounded-xl bg-green-50 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-green-500">payments</span>
+                    </div>
+                    <span class="text-xs font-medium text-green-500 bg-green-50 px-2 py-1 rounded-full">+8%</span>
+                </div>
+                <p class="text-2xl font-black text-gray-900 mt-4">1.2억</p>
+                <p class="text-sm text-gray-500">이번 달 매출</p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                <div class="flex items-center justify-between">
+                    <div class="w-12 h-12 rounded-xl bg-purple-50 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-purple-500">person_add</span>
+                    </div>
+                    <span class="text-xs font-medium text-green-500 bg-green-50 px-2 py-1 rounded-full">+23%</span>
+                </div>
+                <p class="text-2xl font-black text-gray-900 mt-4">89</p>
+                <p class="text-sm text-gray-500">신규 회원</p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                <div class="flex items-center justify-between">
+                    <div class="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center">
+                        <span class="material-symbols-outlined text-orange-500">support_agent</span>
+                    </div>
+                    <span class="text-xs font-medium text-red-500 bg-red-50 px-2 py-1 rounded-full">5건</span>
+                </div>
+                <p class="text-2xl font-black text-gray-900 mt-4">24</p>
+                <p class="text-sm text-gray-500">대기 중 문의</p>
+            </div>
+        </div>
+
+        <!-- Charts Row -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+            <!-- 매출 추이 차트 -->
+            <div class="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-lg font-bold text-gray-900">매출 추이</h3>
+                    <div class="flex items-center gap-2">
+                        <button class="px-3 py-1 text-xs font-medium rounded-full bg-primary text-white">월별</button>
+                        <button class="px-3 py-1 text-xs font-medium rounded-full text-gray-500 hover:bg-gray-100">연별</button>
+                    </div>
+                </div>
+                <canvas id="salesChart" height="200"></canvas>
+            </div>
+
+            <!-- 상품별 판매 현황 -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                <h3 class="text-lg font-bold text-gray-900 mb-6">상품별 판매</h3>
+                <div class="space-y-4">
+                    <div>
+                        <div class="flex items-center justify-between text-sm mb-1">
+                            <span class="text-gray-600">현관문</span>
+                            <span class="font-medium">50%</span>
+                        </div>
+                        <div class="w-full bg-gray-100 rounded-full h-2">
+                            <div class="bg-primary h-2 rounded-full" style="width: 50%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between text-sm mb-1">
+                            <span class="text-gray-600">방화문</span>
+                            <span class="font-medium">16%</span>
+                        </div>
+                        <div class="w-full bg-gray-100 rounded-full h-2">
+                            <div class="bg-blue-500 h-2 rounded-full" style="width: 16%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between text-sm mb-1">
+                            <span class="text-gray-600">중문</span>
+                            <span class="font-medium">24%</span>
+                        </div>
+                        <div class="w-full bg-gray-100 rounded-full h-2">
+                            <div class="bg-yellow-500 h-2 rounded-full" style="width: 24%"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between text-sm mb-1">
+                            <span class="text-gray-600">스마트락</span>
+                            <span class="font-medium">10%</span>
+                        </div>
+                        <div class="w-full bg-gray-100 rounded-full h-2">
+                            <div class="bg-purple-500 h-2 rounded-full" style="width: 10%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-6 border-t border-gray-100">
+                    <h4 class="text-sm font-medium text-gray-500 mb-3">재고 현황</h4>
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">표준 현관문</span>
+                            <span class="text-sm font-medium">32개</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-600">프리미엄 중문</span>
+                            <span class="text-sm font-medium text-red-500">8개 (부족)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Row -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- 최근 주문 -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-lg font-bold text-gray-900">최근 주문</h3>
+                    <a href="#" class="text-sm text-primary font-medium hover:underline">전체 보기</a>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="text-left text-xs text-gray-500 border-b border-gray-100">
+                                <th class="pb-3 font-medium">주문번호</th>
+                                <th class="pb-3 font-medium">고객명</th>
+                                <th class="pb-3 font-medium">상품</th>
+                                <th class="pb-3 font-medium">금액</th>
+                                <th class="pb-3 font-medium">상태</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm">
+                            <tr class="border-b border-gray-50">
+                                <td class="py-3 text-gray-600">#ORD-2024-0156</td>
+                                <td class="py-3 font-medium">김민수</td>
+                                <td class="py-3 text-gray-600">프리미엄 현관문</td>
+                                <td class="py-3 font-medium">1,500,000원</td>
+                                <td class="py-3"><span class="px-2 py-1 text-xs font-medium rounded-full bg-green-50 text-green-600">완료</span></td>
+                            </tr>
+                            <tr class="border-b border-gray-50">
+                                <td class="py-3 text-gray-600">#ORD-2024-0155</td>
+                                <td class="py-3 font-medium">이영희</td>
+                                <td class="py-3 text-gray-600">3연동 중문</td>
+                                <td class="py-3 font-medium">850,000원</td>
+                                <td class="py-3"><span class="px-2 py-1 text-xs font-medium rounded-full bg-blue-50 text-blue-600">시공중</span></td>
+                            </tr>
+                            <tr class="border-b border-gray-50">
+                                <td class="py-3 text-gray-600">#ORD-2024-0154</td>
+                                <td class="py-3 font-medium">박철수</td>
+                                <td class="py-3 text-gray-600">스마트 도어락</td>
+                                <td class="py-3 font-medium">450,000원</td>
+                                <td class="py-3"><span class="px-2 py-1 text-xs font-medium rounded-full bg-yellow-50 text-yellow-600">결제대기</span></td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 text-gray-600">#ORD-2024-0153</td>
+                                <td class="py-3 font-medium">최지은</td>
+                                <td class="py-3 text-gray-600">갑종 방화문</td>
+                                <td class="py-3 font-medium">1,200,000원</td>
+                                <td class="py-3"><span class="px-2 py-1 text-xs font-medium rounded-full bg-purple-50 text-purple-600">배송중</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- 시공 일정 -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                <div class="flex items-center justify-between mb-6">
+                    <h3 class="text-lg font-bold text-gray-900">금주 시공 일정</h3>
+                    <a href="#" class="text-sm text-primary font-medium hover:underline">전체 보기</a>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-start gap-4 p-4 rounded-xl bg-gray-50">
+                        <div class="w-12 h-12 rounded-lg bg-primary/10 flex flex-col items-center justify-center">
+                            <span class="text-xs text-primary font-bold">1월</span>
+                            <span class="text-lg text-primary font-black">18</span>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-medium">프리미엄 현관문 시공</h4>
+                            <p class="text-sm text-gray-500 mt-1">서울시 강남구 역삼동</p>
+                            <div class="flex items-center gap-2 mt-2">
+                                <span class="text-xs bg-blue-100 text-blue-600 px-2 py-0.5 rounded">오전 10:00</span>
+                                <span class="text-xs text-gray-400">담당: 김기술</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 rounded-xl bg-gray-50">
+                        <div class="w-12 h-12 rounded-lg bg-primary/10 flex flex-col items-center justify-center">
+                            <span class="text-xs text-primary font-bold">1월</span>
+                            <span class="text-lg text-primary font-black">19</span>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-medium">3연동 중문 설치</h4>
+                            <p class="text-sm text-gray-500 mt-1">경기도 성남시 분당구</p>
+                            <div class="flex items-center gap-2 mt-2">
+                                <span class="text-xs bg-blue-100 text-blue-600 px-2 py-0.5 rounded">오후 2:00</span>
+                                <span class="text-xs text-gray-400">담당: 박시공</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-4 p-4 rounded-xl bg-gray-50">
+                        <div class="w-12 h-12 rounded-lg bg-primary/10 flex flex-col items-center justify-center">
+                            <span class="text-xs text-primary font-bold">1월</span>
+                            <span class="text-lg text-primary font-black">20</span>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-medium">방화문 + 도어락 설치</h4>
+                            <p class="text-sm text-gray-500 mt-1">서울시 송파구 잠실동</p>
+                            <div class="flex items-center gap-2 mt-2">
+                                <span class="text-xs bg-blue-100 text-blue-600 px-2 py-0.5 rounded">오전 9:00</span>
+                                <span class="text-xs text-gray-400">담당: 이전문</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script>
+// Sales Chart
+const ctx = document.getElementById('salesChart').getContext('2d');
+new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+        datasets: [{
+            label: '매출',
+            data: [8500, 7200, 9100, 8800, 10200, 11500, 10800, 12000, 11200, 13500, 12800, 14200],
+            borderColor: '#496039',
+            backgroundColor: 'rgba(73, 96, 57, 0.1)',
+            fill: true,
+            tension: 0.4,
+            pointBackgroundColor: '#496039',
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            pointRadius: 4
+        }, {
+            label: '주문 수',
+            data: [120, 98, 135, 128, 152, 168, 155, 178, 162, 195, 185, 210],
+            borderColor: '#b29d71',
+            backgroundColor: 'transparent',
+            borderDash: [5, 5],
+            tension: 0.4,
+            pointBackgroundColor: '#b29d71',
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            pointRadius: 4
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    usePointStyle: true,
+                    padding: 20
+                }
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                grid: {
+                    color: 'rgba(0, 0, 0, 0.05)'
+                }
+            },
+            x: {
+                grid: {
+                    display: false
+                }
+            }
+        }
+    }
+});
+</script>
+</body>
+</html>

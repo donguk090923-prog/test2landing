@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html class="light" lang="ko">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>상품 상세 | 아울도어</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#496039",
+                        "background-light": "#f7f7f6",
+                        "background-dark": "#191c16",
+                        "accent-brass": "#b29d71"
+                    },
+                    fontFamily: {
+                        "display": ["Epilogue", "Noto Sans KR", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        body { font-family: 'Epilogue', 'Noto Sans KR', sans-serif; }
+        .thumbnail-btn.active { border-color: #496039; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#141612] dark:text-stone-50">
+<!-- Navigation -->
+<header class="sticky top-0 z-50 w-full border-b border-[#edefeb] bg-background-light/80 backdrop-blur-md">
+    <div class="mx-auto flex max-w-[1280px] items-center justify-between px-6 py-4 lg:px-12">
+        <a href="index.html" class="flex items-center gap-2">
+            <div class="text-primary">
+                <svg class="size-8" fill="currentColor" viewbox="0 0 48 48">
+                    <path d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z"></path>
+                </svg>
+            </div>
+            <h1 class="text-xl font-black tracking-tight text-primary">아울도어</h1>
+        </a>
+        <nav class="hidden items-center gap-8 md:flex">
+            <a class="text-sm font-medium hover:text-primary transition-colors" href="index.html#service">서비스소개</a>
+            <a class="text-sm font-medium text-primary" href="products.html">상품소개</a>
+            <a class="text-sm font-medium hover:text-primary transition-colors" href="index.html#portfolio">시공사례</a>
+            <a class="text-sm font-medium hover:text-primary transition-colors" href="index.html#news-section">뉴스</a>
+        </nav>
+        <div class="flex items-center gap-3">
+            <a href="#" id="login-btn" class="text-sm font-medium hover:text-primary transition-colors">로그인</a>
+            <a href="#" id="signup-btn" class="rounded-lg border border-primary px-4 py-2 text-sm font-medium text-primary hover:bg-primary hover:text-white transition-all">회원가입</a>
+        </div>
+    </div>
+</header>
+
+<main class="mx-auto max-w-[1280px] px-6 py-8 lg:px-12">
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-sm text-gray-500 mb-8">
+        <a href="index.html" class="hover:text-primary">홈</a>
+        <span class="material-symbols-outlined text-sm">chevron_right</span>
+        <a href="products.html" class="hover:text-primary">전체 상품</a>
+        <span class="material-symbols-outlined text-sm">chevron_right</span>
+        <span class="text-primary font-medium" id="breadcrumb-title">아울도어 프리미엄 현관중문</span>
+    </nav>
+
+    <!-- Product Detail -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Product Images -->
+        <div>
+            <div class="aspect-square w-full rounded-2xl overflow-hidden bg-white shadow-sm border border-[#edefeb] mb-4">
+                <img id="main-image" src="https://images.unsplash.com/photo-1506452305024-9d3f02d1c9b5?w=800&h=800&fit=crop" alt="상품 이미지" class="w-full h-full object-cover"/>
+            </div>
+            <div class="grid grid-cols-4 gap-3">
+                <button class="thumbnail-btn active aspect-square rounded-lg overflow-hidden border-2 border-primary" onclick="changeImage(0)">
+                    <img src="https://images.unsplash.com/photo-1506452305024-9d3f02d1c9b5?w=200&h=200&fit=crop" alt="썸네일 1" class="w-full h-full object-cover"/>
+                </button>
+                <button class="thumbnail-btn aspect-square rounded-lg overflow-hidden border-2 border-transparent hover:border-gray-300" onclick="changeImage(1)">
+                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&h=200&fit=crop" alt="썸네일 2" class="w-full h-full object-cover"/>
+                </button>
+                <button class="thumbnail-btn aspect-square rounded-lg overflow-hidden border-2 border-transparent hover:border-gray-300" onclick="changeImage(2)">
+                    <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=200&h=200&fit=crop" alt="썸네일 3" class="w-full h-full object-cover"/>
+                </button>
+                <button class="thumbnail-btn aspect-square rounded-lg overflow-hidden border-2 border-transparent hover:border-gray-300" onclick="changeImage(3)">
+                    <img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=200&h=200&fit=crop" alt="썸네일 4" class="w-full h-full object-cover"/>
+                </button>
+            </div>
+        </div>
+
+        <!-- Product Info -->
+        <div>
+            <div class="flex items-center gap-2 mb-3">
+                <span class="px-3 py-1 text-xs font-bold rounded-full bg-primary text-white">BEST</span>
+                <span class="px-3 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-600">현관중문</span>
+            </div>
+            <h1 id="product-title" class="text-3xl font-black mb-2">아울도어 프리미엄 현관중문</h1>
+            <p class="text-gray-500 mb-6">독일산 단열재와 3중 잠금장치로 완벽한 보안과 단열을 제공하는 프리미엄 현관중문입니다.</p>
+
+            <!-- Rating -->
+            <div class="flex items-center gap-2 mb-6">
+                <div class="flex text-yellow-400">
+                    <span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">star</span>
+                    <span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">star</span>
+                    <span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">star</span>
+                    <span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">star</span>
+                    <span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">star_half</span>
+                </div>
+                <span class="text-sm font-medium">4.8</span>
+                <span class="text-sm text-gray-400">(128개 리뷰)</span>
+            </div>
+
+            <!-- Price -->
+            <div class="bg-gray-50 rounded-xl p-6 mb-6">
+                <div class="flex items-end gap-2 mb-2">
+                    <span class="text-sm text-gray-400 line-through">1,500,000원</span>
+                    <span class="text-sm font-medium text-red-500">테스트용</span>
+                </div>
+                <p id="product-price" class="text-4xl font-black text-primary">100원</p>
+                <p class="text-sm text-gray-500 mt-2">결제 테스트용 금액입니다</p>
+            </div>
+
+            <!-- Options -->
+            <div class="space-y-6 mb-8">
+                <!-- Color -->
+                <div>
+                    <h3 class="text-sm font-bold mb-3">색상 선택</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <button class="option-btn px-4 py-2 text-sm rounded-lg border-2 border-primary bg-primary/5 font-medium">월넛 브라운</button>
+                        <button class="option-btn px-4 py-2 text-sm rounded-lg border border-gray-200 hover:border-primary transition-all">다크 그레이</button>
+                        <button class="option-btn px-4 py-2 text-sm rounded-lg border border-gray-200 hover:border-primary transition-all">내추럴 오크</button>
+                        <button class="option-btn px-4 py-2 text-sm rounded-lg border border-gray-200 hover:border-primary transition-all">화이트</button>
+                    </div>
+                </div>
+
+                <!-- Size -->
+                <div>
+                    <h3 class="text-sm font-bold mb-3">사이즈</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <button class="option-btn px-4 py-2 text-sm rounded-lg border-2 border-primary bg-primary/5 font-medium">표준 (900x2100)</button>
+                        <button class="option-btn px-4 py-2 text-sm rounded-lg border border-gray-200 hover:border-primary transition-all">대형 (1000x2200)</button>
+                        <button class="option-btn px-4 py-2 text-sm rounded-lg border border-gray-200 hover:border-primary transition-all">맞춤 제작</button>
+                    </div>
+                </div>
+
+                <!-- Add-ons -->
+                <div>
+                    <h3 class="text-sm font-bold mb-3">추가 옵션</h3>
+                    <div class="space-y-2">
+                        <label class="flex items-center gap-3 p-3 rounded-lg border border-gray-200 hover:border-primary cursor-pointer transition-all">
+                            <input type="checkbox" class="w-5 h-5 text-primary rounded border-gray-300 focus:ring-primary"/>
+                            <div class="flex-1">
+                                <span class="text-sm font-medium">스마트 도어락 추가</span>
+                                <p class="text-xs text-gray-500">지문+비밀번호+카드 인증</p>
+                            </div>
+                            <span class="text-sm font-bold text-primary">+350,000원</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 rounded-lg border border-gray-200 hover:border-primary cursor-pointer transition-all">
+                            <input type="checkbox" class="w-5 h-5 text-primary rounded border-gray-300 focus:ring-primary"/>
+                            <div class="flex-1">
+                                <span class="text-sm font-medium">기존 문 철거 서비스</span>
+                                <p class="text-xs text-gray-500">기존 현관중문 철거 및 처리</p>
+                            </div>
+                            <span class="text-sm font-bold text-primary">+50,000원</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quantity -->
+            <div class="flex items-center gap-4 mb-6">
+                <span class="text-sm font-bold">수량</span>
+                <div class="flex items-center border border-gray-200 rounded-lg">
+                    <button onclick="changeQty(-1)" class="w-10 h-10 flex items-center justify-center text-gray-500 hover:text-primary transition-colors">
+                        <span class="material-symbols-outlined">remove</span>
+                    </button>
+                    <span id="quantity" class="w-12 text-center font-bold">1</span>
+                    <button onclick="changeQty(1)" class="w-10 h-10 flex items-center justify-center text-gray-500 hover:text-primary transition-colors">
+                        <span class="material-symbols-outlined">add</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex gap-3">
+                <button class="flex-1 py-4 rounded-xl border-2 border-primary text-primary font-bold hover:bg-primary/5 transition-all">
+                    장바구니
+                </button>
+                <a href="checkout.html" class="flex-1 py-4 rounded-xl bg-primary text-white font-bold text-center hover:bg-opacity-90 transition-all">
+                    바로 구매하기
+                </a>
+            </div>
+
+            <!-- Benefits -->
+            <div class="mt-8 grid grid-cols-3 gap-4">
+                <div class="text-center">
+                    <div class="w-12 h-12 mx-auto rounded-full bg-primary/10 flex items-center justify-center mb-2">
+                        <span class="material-symbols-outlined text-primary">local_shipping</span>
+                    </div>
+                    <p class="text-xs font-medium">무료 배송</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-12 h-12 mx-auto rounded-full bg-primary/10 flex items-center justify-center mb-2">
+                        <span class="material-symbols-outlined text-primary">construction</span>
+                    </div>
+                    <p class="text-xs font-medium">무료 시공</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-12 h-12 mx-auto rounded-full bg-primary/10 flex items-center justify-center mb-2">
+                        <span class="material-symbols-outlined text-primary">verified_user</span>
+                    </div>
+                    <p class="text-xs font-medium">10년 보증</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Details Tabs -->
+    <div class="mt-16">
+        <div class="border-b border-gray-200">
+            <div class="flex gap-8">
+                <button class="tab-btn active pb-4 text-sm font-bold text-primary border-b-2 border-primary" data-tab="detail">상품 상세</button>
+                <button class="tab-btn pb-4 text-sm font-medium text-gray-500 hover:text-gray-700" data-tab="spec">제품 사양</button>
+                <button class="tab-btn pb-4 text-sm font-medium text-gray-500 hover:text-gray-700" data-tab="review">리뷰 (128)</button>
+                <button class="tab-btn pb-4 text-sm font-medium text-gray-500 hover:text-gray-700" data-tab="qna">Q&A</button>
+            </div>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="py-12">
+            <!-- Detail Tab -->
+            <div id="tab-detail" class="tab-content">
+                <div class="prose max-w-none">
+                    <h2 class="text-2xl font-black mb-6">아울도어 프리미엄 현관중문</h2>
+                    <p class="text-gray-600 mb-8">독일 최고급 단열재를 사용하여 뛰어난 단열 성능을 자랑하며, 3중 잠금장치와 특수 강화 프레임으로 최상의 보안을 제공합니다. 세련된 디자인과 함께 10년 무상 A/S로 안심하고 사용하실 수 있습니다.</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                        <div class="bg-gray-50 rounded-2xl p-6">
+                            <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary">ac_unit</span>
+                                뛰어난 단열 성능
+                            </h3>
+                            <p class="text-sm text-gray-600">독일산 PU 폼 단열재 적용으로 여름철 냉방비와 겨울철 난방비를 최대 30% 절감할 수 있습니다.</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-2xl p-6">
+                            <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary">lock</span>
+                                3중 보안 시스템
+                            </h3>
+                            <p class="text-sm text-gray-600">상단, 중앙, 하단 3중 잠금장치와 특수 강화 경첩으로 외부 침입을 완벽히 차단합니다.</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-2xl p-6">
+                            <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary">volume_off</span>
+                                방음 효과
+                            </h3>
+                            <p class="text-sm text-gray-600">이중 패킹 시스템으로 외부 소음을 차단하여 조용하고 쾌적한 실내 환경을 유지합니다.</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-2xl p-6">
+                            <h3 class="font-bold text-lg mb-4 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-primary">design_services</span>
+                                프리미엄 디자인
+                            </h3>
+                            <p class="text-sm text-gray-600">다양한 색상과 패턴으로 어떤 인테리어에도 완벽하게 어울리는 세련된 디자인입니다.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-primary/5 rounded-2xl p-8 text-center">
+                        <h3 class="text-xl font-bold mb-4">전문가 무료 방문 상담</h3>
+                        <p class="text-gray-600 mb-6">현장 실측부터 설치까지, 전문 엔지니어가 책임집니다.</p>
+                        <button class="px-8 py-3 bg-primary text-white font-bold rounded-lg hover:bg-opacity-90 transition-all">
+                            무료 상담 신청
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Spec Tab -->
+            <div id="tab-spec" class="tab-content hidden">
+                <h3 class="text-xl font-bold mb-6">제품 사양</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <tbody class="divide-y divide-gray-100">
+                            <tr>
+                                <td class="py-4 px-4 bg-gray-50 font-medium w-40">제품명</td>
+                                <td class="py-4 px-4">아울도어 프리미엄 현관중문</td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 px-4 bg-gray-50 font-medium">크기</td>
+                                <td class="py-4 px-4">표준: 900 x 2100mm / 대형: 1000 x 2200mm</td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 px-4 bg-gray-50 font-medium">두께</td>
+                                <td class="py-4 px-4">70mm (단열재 포함)</td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 px-4 bg-gray-50 font-medium">재질</td>
+                                <td class="py-4 px-4">강화 스틸 프레임 + 고밀도 PU 폼</td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 px-4 bg-gray-50 font-medium">단열등급</td>
+                                <td class="py-4 px-4">1등급 (열관류율 1.0 W/m²K 이하)</td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 px-4 bg-gray-50 font-medium">방음등급</td>
+                                <td class="py-4 px-4">35dB 차음</td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 px-4 bg-gray-50 font-medium">잠금장치</td>
+                                <td class="py-4 px-4">3중 데드볼트 + 후크볼트 시스템</td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 px-4 bg-gray-50 font-medium">색상</td>
+                                <td class="py-4 px-4">월넛 브라운, 다크 그레이, 내추럴 오크, 화이트</td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 px-4 bg-gray-50 font-medium">보증기간</td>
+                                <td class="py-4 px-4">10년 무상 A/S</td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 px-4 bg-gray-50 font-medium">원산지</td>
+                                <td class="py-4 px-4">대한민국</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Review Tab -->
+            <div id="tab-review" class="tab-content hidden">
+                <div class="flex items-center justify-between mb-8">
+                    <div class="flex items-center gap-4">
+                        <div class="text-center">
+                            <p class="text-5xl font-black text-primary">4.8</p>
+                            <div class="flex text-yellow-400 mt-2">
+                                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star_half</span>
+                            </div>
+                            <p class="text-sm text-gray-500 mt-1">128개 리뷰</p>
+                        </div>
+                    </div>
+                    <button class="px-6 py-3 bg-primary text-white font-medium rounded-lg hover:bg-opacity-90 transition-all">
+                        리뷰 작성
+                    </button>
+                </div>
+
+                <div class="divide-y divide-gray-100">
+                    <!-- Review Item -->
+                    <div class="py-6">
+                        <div class="flex items-start justify-between mb-3">
+                            <div>
+                                <div class="flex text-yellow-400 mb-1">
+                                    <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+                                </div>
+                                <p class="font-medium">김**</p>
+                            </div>
+                            <span class="text-xs text-gray-400">2024.01.10</span>
+                        </div>
+                        <p class="text-gray-600 text-sm">정말 만족스럽습니다! 단열이 확실히 좋아져서 난방비가 줄었어요. 시공하시는 분도 친절하시고 꼼꼼하게 해주셨습니다. 강추합니다!</p>
+                        <div class="flex gap-2 mt-3">
+                            <img src="https://images.unsplash.com/photo-1506452305024-9d3f02d1c9b5?w=100&h=100&fit=crop" class="w-16 h-16 rounded-lg object-cover"/>
+                        </div>
+                    </div>
+
+                    <div class="py-6">
+                        <div class="flex items-start justify-between mb-3">
+                            <div>
+                                <div class="flex text-yellow-400 mb-1">
+                                    <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+                                    <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+                                </div>
+                                <p class="font-medium">이**</p>
+                            </div>
+                            <span class="text-xs text-gray-400">2024.01.05</span>
+                        </div>
+                        <p class="text-gray-600 text-sm">색상 월넛 브라운으로 했는데 사진보다 실물이 훨씬 고급스러워요. 10년 보증이라 마음이 놓입니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QnA Tab -->
+            <div id="tab-qna" class="tab-content hidden">
+                <div class="flex items-center justify-between mb-8">
+                    <h3 class="text-xl font-bold">상품 Q&A</h3>
+                    <button class="px-6 py-3 bg-primary text-white font-medium rounded-lg hover:bg-opacity-90 transition-all">
+                        문의하기
+                    </button>
+                </div>
+
+                <div class="divide-y divide-gray-100">
+                    <div class="py-6">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="px-2 py-0.5 text-xs font-medium rounded bg-green-50 text-green-600">답변완료</span>
+                            <span class="text-xs text-gray-400">2024.01.12</span>
+                        </div>
+                        <p class="font-medium mb-2">Q. 시공 기간은 얼마나 걸리나요?</p>
+                        <div class="bg-gray-50 rounded-lg p-4 mt-3">
+                            <p class="text-sm text-gray-600">A. 안녕하세요, 아울도어입니다. 표준 사이즈 기준 약 2-3시간 내에 시공이 완료됩니다. 맞춤 제작의 경우 제작 기간 7-10일이 추가로 소요됩니다.</p>
+                        </div>
+                    </div>
+                    <div class="py-6">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="px-2 py-0.5 text-xs font-medium rounded bg-green-50 text-green-600">답변완료</span>
+                            <span class="text-xs text-gray-400">2024.01.08</span>
+                        </div>
+                        <p class="font-medium mb-2">Q. 기존 문틀도 교체해야 하나요?</p>
+                        <div class="bg-gray-50 rounded-lg p-4 mt-3">
+                            <p class="text-sm text-gray-600">A. 대부분의 경우 기존 문틀을 활용하여 설치가 가능합니다. 다만, 문틀 상태에 따라 교체가 필요할 수 있으며, 무료 실측 시 정확한 안내를 드립니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-stone-100 py-16 px-6 lg:px-12">
+    <div class="mx-auto max-w-[1280px]">
+        <div class="text-center text-sm text-gray-500">
+            © 2024 아울도어 Inc. All rights reserved.
+        </div>
+    </div>
+</footer>
+
+<script>
+const images = [
+    'https://images.unsplash.com/photo-1506452305024-9d3f02d1c9b5?w=800&h=800&fit=crop',
+    'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=800&fit=crop',
+    'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&h=800&fit=crop',
+    'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&h=800&fit=crop'
+];
+
+function changeImage(index) {
+    document.getElementById('main-image').src = images[index];
+    document.querySelectorAll('.thumbnail-btn').forEach((btn, i) => {
+        btn.classList.toggle('active', i === index);
+        btn.classList.toggle('border-primary', i === index);
+        btn.classList.toggle('border-transparent', i !== index);
+    });
+}
+
+let quantity = 1;
+function changeQty(delta) {
+    quantity = Math.max(1, quantity + delta);
+    document.getElementById('quantity').textContent = quantity;
+}
+
+// Tab functionality
+document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.tab-btn').forEach(b => {
+            b.classList.remove('active', 'text-primary', 'border-b-2', 'border-primary');
+            b.classList.add('text-gray-500');
+        });
+        this.classList.add('active', 'text-primary', 'border-b-2', 'border-primary');
+        this.classList.remove('text-gray-500');
+
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+        document.getElementById('tab-' + this.dataset.tab).classList.remove('hidden');
+    });
+});
+</script>
+</body>
+</html>

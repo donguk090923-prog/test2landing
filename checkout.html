@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html class="light" lang="ko">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>결제하기 | 아울도어</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <!-- 토스페이먼츠 SDK -->
+    <script src="https://js.tosspayments.com/v1/payment"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#496039",
+                        "background-light": "#f7f7f6",
+                        "background-dark": "#191c16",
+                        "accent-brass": "#b29d71",
+                        "toss-blue": "#0064FF"
+                    },
+                    fontFamily: {
+                        "display": ["Epilogue", "Noto Sans KR", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        body { font-family: 'Epilogue', 'Noto Sans KR', sans-serif; }
+        .payment-method.active { border-color: #496039; background-color: rgba(73, 96, 57, 0.05); }
+    </style>
+</head>
+<body class="bg-[#f5f5f5]">
+<!-- Navigation -->
+<header class="sticky top-0 z-50 w-full bg-white border-b border-gray-100">
+    <div class="mx-auto flex max-w-[1280px] items-center justify-between px-6 py-4 lg:px-12">
+        <a href="index.html" class="flex items-center gap-2">
+            <div class="text-primary">
+                <svg class="size-8" fill="currentColor" viewbox="0 0 48 48">
+                    <path d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z"></path>
+                </svg>
+            </div>
+            <h1 class="text-xl font-black tracking-tight text-primary">아울도어</h1>
+        </a>
+        <div class="flex items-center gap-2 text-sm text-gray-500">
+            <span class="material-symbols-outlined text-lg">lock</span>
+            안전한 결제
+        </div>
+    </div>
+</header>
+
+<main class="mx-auto max-w-[1280px] px-6 py-8 lg:px-12">
+    <!-- Progress Steps -->
+    <div class="flex items-center justify-center gap-4 mb-12">
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-sm font-bold">1</div>
+            <span class="text-sm font-medium">장바구니</span>
+        </div>
+        <div class="w-12 h-0.5 bg-primary"></div>
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center text-sm font-bold">2</div>
+            <span class="text-sm font-medium text-primary">주문/결제</span>
+        </div>
+        <div class="w-12 h-0.5 bg-gray-200"></div>
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-full bg-gray-200 text-gray-400 flex items-center justify-center text-sm font-bold">3</div>
+            <span class="text-sm text-gray-400">완료</span>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Left Column: Order Info -->
+        <div class="lg:col-span-2 space-y-6">
+            <!-- Order Items -->
+            <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                <h2 class="text-lg font-bold mb-6">주문 상품</h2>
+                <div class="space-y-4">
+                    <div class="flex gap-4 p-4 bg-gray-50 rounded-xl">
+                        <div class="w-24 h-24 rounded-lg bg-cover bg-center flex-shrink-0" style="background-image: url('https://images.unsplash.com/photo-1506452305024-9d3f02d1c9b5?w=200&h=200&fit=crop');"></div>
+                        <div class="flex-1">
+                            <h3 class="font-bold">아울도어 프리미엄 현관중문</h3>
+                            <p class="text-sm text-gray-500 mt-1">색상: 월넛 브라운 / 사이즈: 표준</p>
+                            <div class="flex items-center justify-between mt-3">
+                                <span class="text-sm text-gray-500">수량: 1개</span>
+                                <span class="font-bold text-primary">100원</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Delivery Info -->
+            <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                <h2 class="text-lg font-bold mb-6">배송 / 시공 정보</h2>
+                <div class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="text-xs font-bold uppercase tracking-wider text-gray-500">받는 분</label>
+                            <input type="text" class="mt-2 w-full rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" placeholder="이름"/>
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold uppercase tracking-wider text-gray-500">연락처</label>
+                            <input type="tel" class="mt-2 w-full rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" placeholder="010-0000-0000"/>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold uppercase tracking-wider text-gray-500">주소</label>
+                        <div class="flex gap-2 mt-2">
+                            <input type="text" class="w-32 rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" placeholder="우편번호"/>
+                            <button class="px-4 py-3 text-sm font-medium rounded-lg border border-primary text-primary hover:bg-primary hover:text-white transition-all">주소 검색</button>
+                        </div>
+                        <input type="text" class="mt-2 w-full rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" placeholder="기본 주소"/>
+                        <input type="text" class="mt-2 w-full rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20" placeholder="상세 주소"/>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold uppercase tracking-wider text-gray-500">배송 메모</label>
+                        <select class="mt-2 w-full rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20">
+                            <option>배송 전 연락 바랍니다</option>
+                            <option>문 앞에 놓아주세요</option>
+                            <option>경비실에 맡겨주세요</option>
+                            <option>직접 입력</option>
+                        </select>
+                    </div>
+                    <div class="bg-blue-50 rounded-xl p-4">
+                        <p class="text-sm text-blue-700">
+                            <span class="material-symbols-outlined text-sm align-middle mr-1">info</span>
+                            시공 일정은 결제 완료 후 담당자가 연락드려 조율합니다.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Payment Method -->
+            <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                <h2 class="text-lg font-bold mb-6">결제 수단</h2>
+
+                <!-- Toss Payments Badge -->
+                <div class="flex items-center gap-2 mb-6 pb-6 border-b border-gray-100">
+                    <svg width="60" height="20" viewBox="0 0 60 20" fill="none">
+                        <path d="M12.7 5.7H7.3V7.3H9.2V14.3H10.8V7.3H12.7V5.7Z" fill="#0064FF"/>
+                        <path d="M16.9 5.5C14.6 5.5 13.1 7.1 13.1 10C13.1 12.9 14.6 14.5 16.9 14.5C19.2 14.5 20.7 12.9 20.7 10C20.7 7.1 19.2 5.5 16.9 5.5ZM16.9 13C15.5 13 14.7 11.8 14.7 10C14.7 8.2 15.5 7 16.9 7C18.3 7 19.1 8.2 19.1 10C19.1 11.8 18.3 13 16.9 13Z" fill="#0064FF"/>
+                        <path d="M25.4 9.1C24.1 8.8 23.5 8.6 23.5 8C23.5 7.4 24.1 7 24.9 7C25.7 7 26.3 7.4 26.5 8.1L27.9 7.4C27.5 6.2 26.4 5.5 24.9 5.5C23.1 5.5 21.9 6.5 21.9 8.1C21.9 9.7 23.1 10.3 24.6 10.6C26 10.9 26.5 11.2 26.5 11.8C26.5 12.5 25.9 12.9 25 12.9C24 12.9 23.3 12.4 23 11.5L21.6 12.2C22.1 13.6 23.3 14.5 25 14.5C27 14.5 28.1 13.4 28.1 11.7C28.1 10 26.8 9.4 25.4 9.1Z" fill="#0064FF"/>
+                        <path d="M32.4 9.1C31.1 8.8 30.5 8.6 30.5 8C30.5 7.4 31.1 7 31.9 7C32.7 7 33.3 7.4 33.5 8.1L34.9 7.4C34.5 6.2 33.4 5.5 31.9 5.5C30.1 5.5 28.9 6.5 28.9 8.1C28.9 9.7 30.1 10.3 31.6 10.6C33 10.9 33.5 11.2 33.5 11.8C33.5 12.5 32.9 12.9 32 12.9C31 12.9 30.3 12.4 30 11.5L28.6 12.2C29.1 13.6 30.3 14.5 32 14.5C34 14.5 35.1 13.4 35.1 11.7C35.1 10 33.8 9.4 32.4 9.1Z" fill="#0064FF"/>
+                    </svg>
+                    <span class="text-xs text-gray-500">토스페이먼츠 안전결제</span>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+                    <button class="payment-method active flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-primary transition-all" data-method="card">
+                        <span class="material-symbols-outlined text-2xl text-primary">credit_card</span>
+                        <span class="text-sm font-medium">신용카드</span>
+                    </button>
+                    <button class="payment-method flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-gray-200 hover:border-gray-300 transition-all" data-method="bank">
+                        <span class="material-symbols-outlined text-2xl text-gray-400">account_balance</span>
+                        <span class="text-sm font-medium">계좌이체</span>
+                    </button>
+                    <button class="payment-method flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-gray-200 hover:border-gray-300 transition-all" data-method="virtual">
+                        <span class="material-symbols-outlined text-2xl text-gray-400">receipt_long</span>
+                        <span class="text-sm font-medium">가상계좌</span>
+                    </button>
+                    <button class="payment-method flex flex-col items-center gap-2 p-4 rounded-xl border-2 border-gray-200 hover:border-gray-300 transition-all" data-method="phone">
+                        <span class="material-symbols-outlined text-2xl text-gray-400">phone_android</span>
+                        <span class="text-sm font-medium">휴대폰</span>
+                    </button>
+                </div>
+
+                <!-- Card Info (shown for card payment) -->
+                <div id="card-info" class="mt-6 pt-6 border-t border-gray-100">
+                    <h3 class="text-sm font-bold mb-4">할부 선택</h3>
+                    <select class="w-full rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20">
+                        <option>일시불</option>
+                        <option>2개월 (무이자)</option>
+                        <option>3개월 (무이자)</option>
+                        <option>6개월 (무이자)</option>
+                        <option>12개월 (무이자) - 월 100,000원</option>
+                        <option>24개월</option>
+                    </select>
+                </div>
+            </section>
+
+            <!-- Agreement -->
+            <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                <div class="space-y-3">
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <input type="checkbox" id="agree-all" class="w-5 h-5 text-primary rounded border-gray-300 focus:ring-primary"/>
+                        <span class="font-bold">전체 동의</span>
+                    </label>
+                    <div class="pl-8 space-y-2 text-sm text-gray-600">
+                        <label class="flex items-center gap-3 cursor-pointer">
+                            <input type="checkbox" class="agree-item w-4 h-4 text-primary rounded border-gray-300 focus:ring-primary"/>
+                            <span>[필수] 구매조건 확인 및 결제진행에 동의</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer">
+                            <input type="checkbox" class="agree-item w-4 h-4 text-primary rounded border-gray-300 focus:ring-primary"/>
+                            <span>[필수] 개인정보 수집 및 이용 동의</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer">
+                            <input type="checkbox" class="agree-item w-4 h-4 text-primary rounded border-gray-300 focus:ring-primary"/>
+                            <span>[필수] 개인정보 제3자 제공 동의</span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Right Column: Order Summary -->
+        <div class="lg:col-span-1">
+            <div class="sticky top-24">
+                <section class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+                    <h2 class="text-lg font-bold mb-6">결제 금액</h2>
+
+                    <div class="space-y-3 pb-6 border-b border-gray-100">
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-gray-500">상품 금액</span>
+                            <span>100원</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-gray-500">할인 금액</span>
+                            <span class="text-red-500">0원</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-gray-500">배송비</span>
+                            <span class="text-primary">무료</span>
+                        </div>
+                        <div class="flex items-center justify-between text-sm">
+                            <span class="text-gray-500">시공비</span>
+                            <span class="text-primary">무료</span>
+                        </div>
+                    </div>
+
+                    <!-- Coupon -->
+                    <div class="py-6 border-b border-gray-100">
+                        <div class="flex gap-2">
+                            <input type="text" class="flex-1 rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm outline-none focus:border-primary" placeholder="쿠폰 코드 입력"/>
+                            <button class="px-4 py-3 text-sm font-medium rounded-lg border border-gray-200 hover:border-primary hover:text-primary transition-all">적용</button>
+                        </div>
+                        <button class="mt-2 text-sm text-primary hover:underline">사용 가능한 쿠폰 보기</button>
+                    </div>
+
+                    <!-- Points -->
+                    <div class="py-6 border-b border-gray-100">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm font-medium">포인트 사용</span>
+                            <span class="text-xs text-gray-500">보유 125,000P</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <input type="number" class="flex-1 rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm outline-none focus:border-primary" placeholder="0" value="0"/>
+                            <button class="px-4 py-3 text-sm font-medium rounded-lg border border-gray-200 hover:border-primary hover:text-primary transition-all">전액</button>
+                        </div>
+                    </div>
+
+                    <!-- Total -->
+                    <div class="py-6">
+                        <div class="flex items-center justify-between">
+                            <span class="text-lg font-bold">최종 결제 금액</span>
+                            <span class="text-2xl font-black text-primary">100원</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-2 text-right">테스트 결제용</p>
+                    </div>
+
+                    <!-- Pay Button -->
+                    <button id="payment-button" class="w-full py-4 rounded-xl bg-toss-blue text-white font-bold text-lg hover:bg-blue-600 transition-all flex items-center justify-center gap-2">
+                        <span>100원 결제하기</span>
+                    </button>
+
+                    <p class="text-xs text-center text-gray-400 mt-4">
+                        위 내용을 확인하였으며, 결제에 동의합니다.
+                    </p>
+                </section>
+
+                <!-- Security Badges -->
+                <div class="mt-4 flex items-center justify-center gap-4 text-xs text-gray-400">
+                    <div class="flex items-center gap-1">
+                        <span class="material-symbols-outlined text-sm">lock</span>
+                        SSL 보안
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <span class="material-symbols-outlined text-sm">verified_user</span>
+                        PCI-DSS 인증
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-white py-8 px-6 lg:px-12 mt-12 border-t border-gray-100">
+    <div class="mx-auto max-w-[1280px] text-center text-sm text-gray-500">
+        © 2024 아울도어 Inc. All rights reserved.
+    </div>
+</footer>
+
+<!-- Configuration -->
+<script src="config.js"></script>
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-analytics-compat.js"></script>
+<!-- Firebase Config -->
+<script src="firebase-config.js"></script>
+
+<script>
+// Payment method selection
+document.querySelectorAll('.payment-method').forEach(btn => {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.payment-method').forEach(b => {
+            b.classList.remove('active', 'border-primary');
+            b.classList.add('border-gray-200');
+            b.querySelector('.material-symbols-outlined, img, div')?.classList.remove('text-primary');
+            b.querySelector('.material-symbols-outlined')?.classList.add('text-gray-400');
+        });
+        this.classList.add('active', 'border-primary');
+        this.classList.remove('border-gray-200');
+        this.querySelector('.material-symbols-outlined')?.classList.add('text-primary');
+        this.querySelector('.material-symbols-outlined')?.classList.remove('text-gray-400');
+
+        // Show/hide card info
+        const cardInfo = document.getElementById('card-info');
+        if (this.dataset.method === 'card') {
+            cardInfo.classList.remove('hidden');
+        } else {
+            cardInfo.classList.add('hidden');
+        }
+    });
+});
+
+// Agree all checkbox
+document.getElementById('agree-all').addEventListener('change', function() {
+    document.querySelectorAll('.agree-item').forEach(item => {
+        item.checked = this.checked;
+    });
+});
+
+// Individual checkbox updates agree-all
+document.querySelectorAll('.agree-item').forEach(item => {
+    item.addEventListener('change', function() {
+        const allChecked = [...document.querySelectorAll('.agree-item')].every(i => i.checked);
+        document.getElementById('agree-all').checked = allChecked;
+    });
+});
+
+// Toss Payments Integration - config.js에서 불러오기
+const clientKey = typeof CONFIG !== 'undefined' ? CONFIG.toss.clientKey : '';
+const tossPayments = TossPayments(clientKey);
+
+// 현재 선택된 결제 수단
+let selectedPaymentMethod = 'card';
+
+// 결제 수단 선택 이벤트
+document.querySelectorAll('.payment-method').forEach(btn => {
+    btn.addEventListener('click', function() {
+        selectedPaymentMethod = this.dataset.method;
+    });
+});
+
+document.getElementById('payment-button').addEventListener('click', async function() {
+    // 필수 동의 체크
+    const allAgreed = [...document.querySelectorAll('.agree-item')].every(i => i.checked);
+    if (!allAgreed) {
+        alert('필수 약관에 동의해주세요.');
+        return;
+    }
+
+    // 주문 정보
+    const orderId = 'DOOR_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    const amount = 100; // 테스트용 100원
+    const orderName = '아울도어 프리미엄 현관중문 (테스트)';
+
+    // 결제 수단별 매핑
+    const paymentMethodMap = {
+        'card': '카드',
+        'bank': '계좌이체',
+        'virtual': '가상계좌',
+        'phone': '휴대폰'
+    };
+
+    const method = paymentMethodMap[selectedPaymentMethod] || '카드';
+
+    // 배송 정보 수집
+    const customerName = document.querySelector('input[placeholder="이름"]')?.value || '고객';
+    const customerPhone = document.querySelector('input[placeholder="010-0000-0000"]')?.value || '';
+    const postalCode = document.querySelector('input[placeholder="우편번호"]')?.value || '';
+    const address = document.querySelector('input[placeholder="기본 주소"]')?.value || '';
+    const addressDetail = document.querySelector('input[placeholder="상세 주소"]')?.value || '';
+
+    try {
+        // Firebase에 주문 정보 저장
+        const orderResult = await createOrder({
+            productName: orderName,
+            amount: amount,
+            paymentMethod: method,
+            customer: {
+                name: customerName,
+                phone: customerPhone,
+                address: postalCode + ' ' + address + ' ' + addressDetail
+            }
+        });
+
+        if (!orderResult.success) {
+            alert('주문 생성 중 오류가 발생했습니다.');
+            return;
+        }
+
+        // 토스페이먼츠 결제 요청
+        const paymentData = {
+            amount: amount,
+            orderId: orderResult.orderId,
+            orderName: orderName,
+            customerName: customerName,
+            successUrl: window.location.origin + '/checkout-success.html?orderId=' + orderResult.orderId,
+            failUrl: window.location.origin + '/checkout-fail.html',
+        };
+
+        // 가상계좌일 경우 추가 정보
+        if (selectedPaymentMethod === 'virtual') {
+            paymentData.validHours = 24;
+            paymentData.cashReceipt = { type: '소득공제' };
+        }
+
+        await tossPayments.requestPayment(method, paymentData);
+    } catch (error) {
+        if (error.code === 'USER_CANCEL') {
+            console.log('사용자가 결제를 취소했습니다.');
+        } else if (error.code === 'INVALID_CARD_COMPANY') {
+            alert('유효하지 않은 카드입니다.');
+        } else {
+            alert('결제 중 오류가 발생했습니다: ' + error.message);
+        }
+    }
+});
+</script>
+</body>
+</html>

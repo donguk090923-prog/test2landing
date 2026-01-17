@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html class="light" lang="ko">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>결제 실패 | 아울도어</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#496039",
+                        "background-light": "#f7f7f6",
+                        "accent-brass": "#b29d71"
+                    },
+                    fontFamily: {
+                        "display": ["Epilogue", "Noto Sans KR", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        body { font-family: 'Epilogue', 'Noto Sans KR', sans-serif; }
+    </style>
+</head>
+<body class="bg-background-light min-h-screen flex flex-col">
+<!-- Navigation -->
+<header class="w-full bg-white border-b border-gray-100">
+    <div class="mx-auto flex max-w-[1280px] items-center justify-between px-6 py-4 lg:px-12">
+        <a href="index.html" class="flex items-center gap-2">
+            <div class="text-primary">
+                <svg class="size-8" fill="currentColor" viewbox="0 0 48 48">
+                    <path d="M44 4H30.6666V17.3334H17.3334V30.6666H4V44H44V4Z"></path>
+                </svg>
+            </div>
+            <h1 class="text-xl font-black tracking-tight text-primary">아울도어</h1>
+        </a>
+    </div>
+</header>
+
+<main class="flex-1 flex items-center justify-center px-6 py-12">
+    <div class="max-w-lg w-full text-center">
+        <!-- Error Icon -->
+        <div class="w-24 h-24 mx-auto mb-8 rounded-full bg-red-100 flex items-center justify-center">
+            <span class="material-symbols-outlined text-5xl text-red-500" style="font-variation-settings: 'FILL' 1;">error</span>
+        </div>
+
+        <h1 class="text-3xl font-black text-gray-900 mb-4">결제에 실패했습니다</h1>
+        <p class="text-gray-500 mb-8">결제 처리 중 문제가 발생했습니다. 아래 내용을 확인 후 다시 시도해주세요.</p>
+
+        <!-- Error Details Card -->
+        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 text-left mb-8">
+            <h2 class="text-lg font-bold mb-4 pb-4 border-b border-gray-100">오류 정보</h2>
+
+            <div class="space-y-3">
+                <div class="flex justify-between">
+                    <span class="text-gray-500">오류 코드</span>
+                    <span id="error-code" class="font-medium text-red-500">-</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-500">오류 메시지</span>
+                    <span id="error-message" class="font-medium">-</span>
+                </div>
+            </div>
+
+            <div class="mt-6 pt-6 border-t border-gray-100">
+                <h3 class="font-medium mb-3">자주 발생하는 원인</h3>
+                <ul class="text-sm text-gray-600 space-y-2">
+                    <li class="flex items-start gap-2">
+                        <span class="material-symbols-outlined text-sm text-gray-400 mt-0.5">check</span>
+                        카드 한도 초과 또는 잔액 부족
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="material-symbols-outlined text-sm text-gray-400 mt-0.5">check</span>
+                        카드사 서버 오류 또는 점검 중
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="material-symbols-outlined text-sm text-gray-400 mt-0.5">check</span>
+                        결제 정보 입력 오류
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span class="material-symbols-outlined text-sm text-gray-400 mt-0.5">check</span>
+                        네트워크 연결 문제
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-3">
+            <a href="checkout.html" class="flex-1 py-4 rounded-xl bg-primary text-white font-bold text-center hover:bg-opacity-90 transition-all">
+                다시 결제하기
+            </a>
+            <a href="index.html" class="flex-1 py-4 rounded-xl border-2 border-gray-200 text-gray-700 font-bold text-center hover:border-primary hover:text-primary transition-all">
+                홈으로 돌아가기
+            </a>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="mt-8 text-sm text-gray-500">
+            <p>문제가 계속되면 고객센터로 연락해주세요.</p>
+            <p class="font-medium text-gray-700 mt-1">1588-0000 (평일 09:00~18:00)</p>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-white py-6 px-6 border-t border-gray-100">
+    <div class="mx-auto max-w-[1280px] text-center text-sm text-gray-500">
+        © 2024 아울도어 Inc. All rights reserved.
+    </div>
+</footer>
+
+<script>
+// URL 파라미터에서 오류 정보 추출
+const urlParams = new URLSearchParams(window.location.search);
+const errorCode = urlParams.get('code') || 'UNKNOWN_ERROR';
+const errorMessage = urlParams.get('message') || '알 수 없는 오류가 발생했습니다.';
+
+// 오류 정보 표시
+document.getElementById('error-code').textContent = errorCode;
+document.getElementById('error-message').textContent = decodeURIComponent(errorMessage);
+</script>
+</body>
+</html>

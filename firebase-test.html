@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Firebase 연동 테스트 | 아울도어</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .log-item { padding: 8px 12px; border-radius: 8px; margin-bottom: 8px; font-family: monospace; }
+        .log-success { background: #dcfce7; color: #166534; }
+        .log-error { background: #fee2e2; color: #991b1b; }
+        .log-info { background: #e0f2fe; color: #075985; }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8">Firebase 연동 테스트</h1>
+
+        <!-- 테스트 결과 로그 -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+            <h2 class="text-xl font-bold mb-4">테스트 로그</h2>
+            <div id="test-log" class="space-y-2">
+                <div class="log-item log-info">테스트 시작 대기중...</div>
+            </div>
+        </div>
+
+        <!-- 테스트 버튼들 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Firebase 초기화 테스트 -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-bold mb-4">1. Firebase 초기화</h3>
+                <button onclick="testFirebaseInit()" class="w-full py-3 bg-blue-500 text-white rounded-lg font-bold hover:bg-blue-600">
+                    초기화 테스트
+                </button>
+            </div>
+
+            <!-- 상품 데이터 초기화 -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-bold mb-4">2. 상품 데이터 등록</h3>
+                <button onclick="testInitProducts()" class="w-full py-3 bg-green-500 text-white rounded-lg font-bold hover:bg-green-600">
+                    상품 초기화
+                </button>
+            </div>
+
+            <!-- 회원가입 테스트 -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-bold mb-4">3. 회원가입 테스트</h3>
+                <input type="email" id="test-email" placeholder="이메일" class="w-full mb-2 p-3 border rounded-lg" value="test@owldoor.com"/>
+                <input type="password" id="test-password" placeholder="비밀번호" class="w-full mb-2 p-3 border rounded-lg" value="test1234"/>
+                <input type="text" id="test-name" placeholder="이름" class="w-full mb-4 p-3 border rounded-lg" value="테스트유저"/>
+                <button onclick="testSignUp()" class="w-full py-3 bg-purple-500 text-white rounded-lg font-bold hover:bg-purple-600">
+                    회원가입 테스트
+                </button>
+            </div>
+
+            <!-- 로그인 테스트 -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-bold mb-4">4. 로그인 테스트</h3>
+                <button onclick="testSignIn()" class="w-full py-3 bg-indigo-500 text-white rounded-lg font-bold hover:bg-indigo-600">
+                    로그인 테스트
+                </button>
+                <button onclick="testSignOut()" class="w-full py-3 mt-2 bg-gray-500 text-white rounded-lg font-bold hover:bg-gray-600">
+                    로그아웃
+                </button>
+            </div>
+
+            <!-- 견적 요청 테스트 -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-bold mb-4">5. 견적 요청 테스트</h3>
+                <input type="tel" id="quote-phone" placeholder="연락처" class="w-full mb-2 p-3 border rounded-lg" value="010-1234-5678"/>
+                <input type="text" id="quote-address" placeholder="주소" class="w-full mb-4 p-3 border rounded-lg" value="서울시 강남구"/>
+                <button onclick="testQuote()" class="w-full py-3 bg-orange-500 text-white rounded-lg font-bold hover:bg-orange-600">
+                    견적 요청 테스트
+                </button>
+            </div>
+
+            <!-- 주문 테스트 -->
+            <div class="bg-white rounded-xl shadow-lg p-6">
+                <h3 class="text-lg font-bold mb-4">6. 주문 생성 테스트</h3>
+                <button onclick="testOrder()" class="w-full py-3 bg-red-500 text-white rounded-lg font-bold hover:bg-red-600">
+                    주문 생성 테스트
+                </button>
+            </div>
+        </div>
+
+        <!-- 데이터 조회 -->
+        <div class="bg-white rounded-xl shadow-lg p-6 mt-8">
+            <h2 class="text-xl font-bold mb-4">데이터 조회</h2>
+            <div class="grid grid-cols-3 gap-4">
+                <button onclick="fetchProducts()" class="py-3 bg-teal-500 text-white rounded-lg font-bold hover:bg-teal-600">
+                    상품 목록
+                </button>
+                <button onclick="fetchOrders()" class="py-3 bg-cyan-500 text-white rounded-lg font-bold hover:bg-cyan-600">
+                    주문 목록
+                </button>
+                <button onclick="fetchQuotes()" class="py-3 bg-emerald-500 text-white rounded-lg font-bold hover:bg-emerald-600">
+                    견적 요청 목록
+                </button>
+            </div>
+            <div id="data-display" class="mt-4 p-4 bg-gray-100 rounded-lg max-h-60 overflow-auto">
+                <pre id="data-content" class="text-sm">조회 버튼을 클릭하세요.</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- Configuration -->
+    <script src="config.js"></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-analytics-compat.js"></script>
+    <script src="firebase-config.js"></script>
+
+    <script>
+        function log(message, type = 'info') {
+            const logContainer = document.getElementById('test-log');
+            const logItem = document.createElement('div');
+            logItem.className = `log-item log-${type}`;
+            logItem.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logContainer.appendChild(logItem);
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+
+        // 1. Firebase 초기화 테스트
+        function testFirebaseInit() {
+            try {
+                if (firebase.apps.length > 0) {
+                    log('Firebase 초기화 완료! 프로젝트: ' + firebase.app().options.projectId, 'success');
+                    log('Auth 서비스: ' + (auth ? '사용 가능' : '사용 불가'), auth ? 'success' : 'error');
+                    log('Firestore 서비스: ' + (db ? '사용 가능' : '사용 불가'), db ? 'success' : 'error');
+                } else {
+                    log('Firebase가 초기화되지 않았습니다.', 'error');
+                }
+            } catch (error) {
+                log('Firebase 초기화 오류: ' + error.message, 'error');
+            }
+        }
+
+        // 2. 상품 초기화
+        async function testInitProducts() {
+            try {
+                log('상품 데이터 초기화 시작...', 'info');
+                await initializeProducts();
+                log('상품 데이터 초기화 완료!', 'success');
+            } catch (error) {
+                log('상품 초기화 오류: ' + error.message, 'error');
+            }
+        }
+
+        // 3. 회원가입 테스트
+        async function testSignUp() {
+            const email = document.getElementById('test-email').value;
+            const password = document.getElementById('test-password').value;
+            const name = document.getElementById('test-name').value;
+
+            log('회원가입 시도: ' + email, 'info');
+            const result = await signUpWithEmail(email, password, name);
+
+            if (result.success) {
+                log('회원가입 성공! UID: ' + result.user.uid, 'success');
+            } else {
+                log('회원가입 실패: ' + result.error, 'error');
+            }
+        }
+
+        // 4. 로그인 테스트
+        async function testSignIn() {
+            const email = document.getElementById('test-email').value;
+            const password = document.getElementById('test-password').value;
+
+            log('로그인 시도: ' + email, 'info');
+            const result = await signInWithEmail(email, password);
+
+            if (result.success) {
+                log('로그인 성공! 사용자: ' + result.user.email, 'success');
+            } else {
+                log('로그인 실패: ' + result.error, 'error');
+            }
+        }
+
+        // 로그아웃
+        async function testSignOut() {
+            log('로그아웃 시도...', 'info');
+            const result = await signOut();
+            if (result.success) {
+                log('로그아웃 성공!', 'success');
+            } else {
+                log('로그아웃 실패: ' + result.error, 'error');
+            }
+        }
+
+        // 5. 견적 요청 테스트
+        async function testQuote() {
+            const phone = document.getElementById('quote-phone').value;
+            const address = document.getElementById('quote-address').value;
+
+            log('견적 요청 생성 중...', 'info');
+            const result = await createQuoteRequest({
+                phone: phone,
+                address: address,
+                source: 'firebase_test'
+            });
+
+            if (result.success) {
+                log('견적 요청 성공! ID: ' + result.quoteId, 'success');
+            } else {
+                log('견적 요청 실패: ' + result.error, 'error');
+            }
+        }
+
+        // 6. 주문 테스트
+        async function testOrder() {
+            log('주문 생성 중...', 'info');
+            const result = await createOrder({
+                productName: '아울도어 프리미엄 현관중문 (테스트)',
+                amount: 100,
+                paymentMethod: '카드',
+                customer: {
+                    name: '테스트고객',
+                    phone: '010-1234-5678',
+                    address: '서울시 강남구 테스트로 123'
+                }
+            });
+
+            if (result.success) {
+                log('주문 생성 성공! 주문번호: ' + result.orderId, 'success');
+            } else {
+                log('주문 생성 실패: ' + result.error, 'error');
+            }
+        }
+
+        // 데이터 조회 함수들
+        async function fetchProducts() {
+            log('상품 목록 조회 중...', 'info');
+            const result = await getProducts();
+            if (result.success) {
+                document.getElementById('data-content').textContent = JSON.stringify(result.products, null, 2);
+                log('상품 ' + result.products.length + '개 조회됨', 'success');
+            } else {
+                log('상품 조회 실패: ' + result.error, 'error');
+            }
+        }
+
+        async function fetchOrders() {
+            log('주문 목록 조회 중...', 'info');
+            try {
+                const snapshot = await db.collection('orders').orderBy('createdAt', 'desc').limit(10).get();
+                const orders = [];
+                snapshot.forEach(doc => orders.push({ id: doc.id, ...doc.data() }));
+                document.getElementById('data-content').textContent = JSON.stringify(orders, null, 2);
+                log('주문 ' + orders.length + '개 조회됨', 'success');
+            } catch (error) {
+                log('주문 조회 실패: ' + error.message, 'error');
+            }
+        }
+
+        async function fetchQuotes() {
+            log('견적 요청 목록 조회 중...', 'info');
+            try {
+                const snapshot = await db.collection('quotes').orderBy('createdAt', 'desc').limit(10).get();
+                const quotes = [];
+                snapshot.forEach(doc => quotes.push({ id: doc.id, ...doc.data() }));
+                document.getElementById('data-content').textContent = JSON.stringify(quotes, null, 2);
+                log('견적 요청 ' + quotes.length + '개 조회됨', 'success');
+            } catch (error) {
+                log('견적 요청 조회 실패: ' + error.message, 'error');
+            }
+        }
+
+        // 페이지 로드 시 Firebase 상태 확인
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                log('페이지 로드 완료. Firebase 테스트를 시작하세요.', 'info');
+                testFirebaseInit();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
